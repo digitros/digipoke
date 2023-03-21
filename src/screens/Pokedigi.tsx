@@ -11,9 +11,13 @@ interface Pokemon {
 export interface PokemonDetail {
   id: number;
   name: string;
-  type: {
-    name: string;
-  };
+  types: [
+    {
+      type: {
+        name: string;
+      };
+    }
+  ];
   order: number;
   sprites: {
     other: {
@@ -26,12 +30,14 @@ export interface PokemonDetail {
 
 const Pokedigi = (): JSX.Element => {
   const [pokemons, setPokemons] = useState<PokemonDetail[]>([]);
+  const [nextUrl, setNextUrl] = useState<string | null>(null);
 
   const loadPokemons = async () => {
     try {
-      const response: Pokemon[] = await getPokemonsApi();
+      const { results, next } = await getPokemonsApi(nextUrl);
+      setNextUrl(next);
       const pokemonsArray: PokemonDetail[] = [];
-      for await (const pokemon of response) {
+      for await (const pokemon of results) {
         const pokemonData: PokemonDetail = await getPokemonByUrlApi(
           pokemon.url
         );
@@ -49,7 +55,7 @@ const Pokedigi = (): JSX.Element => {
 
   return (
     <SafeAreaView>
-      <PokemonList pokemons={pokemons} />
+      <PokemonList pokemons={pokemons} loadPokemons={loadPokemons} />
     </SafeAreaView>
   );
 };

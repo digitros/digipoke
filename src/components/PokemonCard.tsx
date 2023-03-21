@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { PokemonDetail } from "../screens/Pokedigi";
+import { getColorByPokemonType } from "../utils/getColorByPokemonType";
 
 interface Props {
   pokemon: PokemonDetail;
@@ -9,13 +10,18 @@ interface Props {
 const PokemonCard = (props: Props) => {
   const { pokemon } = props;
 
+  const bgStyle = {
+    ...styles.card,
+    backgroundColor: getColorByPokemonType(pokemon.types[0].type.name),
+  };
+
   const goToPokemon = () => {
     console.log("go to pokemon", pokemon.name);
   };
 
   return (
     <Pressable onPress={goToPokemon}>
-      <View style={styles.card}>
+      <View style={bgStyle}>
         <View style={styles.textContainer}>
           <Text style={styles.order}>
             #{String(pokemon.order).padStart(2, "0")}
@@ -39,7 +45,10 @@ const styles = StyleSheet.create({
     height: 130,
     width: 150,
     position: "relative",
-    padding: 5,
+    padding: 10,
+    backgroundColor: "#fff",
+    marginBottom: 10,
+    borderRadius: 15,
   },
   image: {
     position: "absolute",
@@ -50,15 +59,13 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     position: "absolute",
-    width: "100%",
-    bottom: 0,
-    left: 0,
-    backgroundColor: "#000000a0",
-    padding: 5,
+    width: 150,
+    padding: 10,
   },
   name: {
     fontSize: 15,
     color: "#fff",
+    textTransform: "capitalize",
   },
   order: {
     fontSize: 12,

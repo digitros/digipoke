@@ -8,7 +8,14 @@ const Stack = createNativeStackNavigator();
 const PokedigiNAvigation = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Pokedigi" component={PokedigiScreen} />
+      <Stack.Screen
+        name="Pokedigi"
+        component={PokedigiScreen}
+        options={{
+          title: "",
+          headerTransparent: true,
+        }}
+      />
       <Stack.Screen name="Pokemon" component={PokemonScreen} />
     </Stack.Navigator>
   );
