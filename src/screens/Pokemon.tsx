@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { PokedexStackParamList } from "../navigation/PokedigiNavigation";
 import Header from "../components/Pokemon/Header";
 import Type from "../components/Pokemon/Type";
+import Stats from "../components/Pokemon/Stats";
 
 type Props = NativeStackScreenProps<
   PokedexStackParamList,
@@ -22,6 +23,7 @@ const Pokemon = (props: Props) => {
         type={pokemon.types[0].type.name}
       />
       <Type types={pokemon.types} />
+      <Stats stats={pokemon.stats} />
     </ScrollView>
   );
 };

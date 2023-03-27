@@ -3,29 +3,34 @@ import React, { useEffect, useState } from "react";
 import { getPokemonByUrlApi, getPokemonsApi } from "../api/pokemon";
 import PokemonList from "../components/PokemonList";
 
-interface Pokemon {
-  name: string;
-  url: string;
+export interface PokemonType {
+  type: { name: string; url: string };
+}
+
+export interface PokemonSprites {
+  other: {
+    "official-artwork": {
+      front_default: string;
+    };
+  };
+}
+
+export interface PokemonStats {
+  base_stat: number;
+  effort: number;
+  stat: {
+    name: string;
+    url: string;
+  };
 }
 
 export interface PokemonDetail {
   id: number;
   name: string;
-  types: [
-    {
-      type: {
-        name: string;
-      };
-    }
-  ];
+  types: PokemonType[];
   order: number;
-  sprites: {
-    other: {
-      "official-artwork": {
-        front_default: string;
-      };
-    };
-  };
+  sprites: PokemonSprites;
+  stats: PokemonStats[];
 }
 
 const Pokedigi = (): JSX.Element => {

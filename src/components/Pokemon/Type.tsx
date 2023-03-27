@@ -1,13 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { getColorByPokemonType } from "../../utils/getColorByPokemonType";
+import { PokemonType } from "../../screens/Pokedigi";
 
 interface Props {
-  types: {
-    type: {
-      name: string;
-    };
-  }[];
+  types: PokemonType[];
 }
 
 export default function Type(props: Props) {
