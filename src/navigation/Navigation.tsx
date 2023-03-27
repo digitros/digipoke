@@ -6,6 +6,7 @@ import { Image } from "react-native";
 import AccountScreen from "../screens/Account";
 import FavoriteScreen from "../screens/Favorite";
 import PokedigiScreen from "../screens/Pokedigi";
+import PokedigiNavigation from "./PokedigiNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ const Navigation = (): JSX.Element => {
       />
       <Tab.Screen
         name="Pokedigi"
-        component={PokedigiScreen}
+        component={PokedigiNavigation}
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color, size }) => (

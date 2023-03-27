@@ -2,6 +2,9 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { PokemonDetail } from "../screens/Pokedigi";
 import { getColorByPokemonType } from "../utils/getColorByPokemonType";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { PokedexStackParamList } from "../navigation/PokedigiNavigation";
 
 interface Props {
   pokemon: PokemonDetail;
@@ -9,6 +12,8 @@ interface Props {
 
 const PokemonCard = (props: Props) => {
   const { pokemon } = props;
+  const navigation =
+    useNavigation<NativeStackNavigationProp<PokedexStackParamList>>();
 
   const bgStyle = {
     ...styles.card,
@@ -16,7 +21,7 @@ const PokemonCard = (props: Props) => {
   };
 
   const goToPokemon = () => {
-    console.log("go to pokemon", pokemon.name);
+    navigation.navigate("Pokemon", { pokemon: pokemon });
   };
 
   return (

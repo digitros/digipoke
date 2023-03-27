@@ -1,24 +1,38 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import PokedigiScreen from "../screens/Pokedigi";
+import PokedigiScreen, { PokemonDetail } from "../screens/Pokedigi";
 import PokemonScreen from "../screens/Pokemon";
+import { NavigatorScreenParams } from "@react-navigation/native";
 
-const Stack = createNativeStackNavigator();
+export type PokedexStackParamList = {
+  Home: NavigatorScreenParams<{}>;
+  Pokemon: { pokemon: PokemonDetail };
+};
 
-const PokedigiNAvigation = () => {
+const Stack = createNativeStackNavigator<PokedexStackParamList>();
+
+const PokedigiNavigation = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator id="PokedigiNavigator">
       <Stack.Screen
-        name="Pokedigi"
+        name="Home"
         component={PokedigiScreen}
+        options={{
+          title: "",
+          headerTransparent: true,
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="Pokemon"
+        component={PokemonScreen}
         options={{
           title: "",
           headerTransparent: true,
         }}
       />
-      <Stack.Screen name="Pokemon" component={PokemonScreen} />
     </Stack.Navigator>
   );
 };
 
-export default PokedigiNAvigation;
+export default PokedigiNavigation;
