@@ -1,5 +1,6 @@
 import { Text, ScrollView } from "react-native";
 import React from "react";
+import IonIcon from "@expo/vector-icons/FontAwesome5";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { PokedexStackParamList } from "../navigation/PokedigiNavigation";
 import Header from "../components/Pokemon/Header";
@@ -13,7 +14,27 @@ type Props = NativeStackScreenProps<
 >;
 
 const Pokemon = (props: Props) => {
-  const { pokemon } = props.route.params;
+  const {
+    navigation,
+    route: { params },
+  } = props;
+  const { pokemon } = params;
+
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => null,
+      headerLeft: () => (
+        <IonIcon
+          name="arrow-left"
+          size={20}
+          color="#fff"
+          style={{ marginLeft: 20 }}
+          onPress={() => navigation.goBack()}
+        />
+      ),
+    });
+  }, [navigation, pokemon]);
+
   return (
     <ScrollView>
       <Header
