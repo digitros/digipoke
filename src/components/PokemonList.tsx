@@ -6,10 +6,11 @@ import PokemonCard from "./PokemonCard";
 interface Props {
   pokemons: PokemonDetail[];
   loadPokemons: () => void;
+  isNext: boolean;
 }
 
 const PokemonList = (props: Props) => {
-  const { pokemons, loadPokemons } = props;
+  const { pokemons, loadPokemons, isNext } = props;
 
   const loadMorePokemons = () => {
     loadPokemons();
@@ -24,10 +25,16 @@ const PokemonList = (props: Props) => {
       renderItem={({ item: pokemon }) => <PokemonCard pokemon={pokemon} />}
       contentContainerStyle={styles.flatListContentContainer}
       columnWrapperStyle={{ justifyContent: "space-around" }}
-      onEndReached={loadMorePokemons}
+      onEndReached={isNext && loadMorePokemons}
       onEndReachedThreshold={0.2}
       ListFooterComponent={
-        <ActivityIndicator size="large" style={styles.spinner} color="AEAEAE" />
+        isNext && (
+          <ActivityIndicator
+            size="large"
+            style={styles.spinner}
+            color="AEAEAE"
+          />
+        )
       }
     />
   );

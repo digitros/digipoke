@@ -55,7 +55,11 @@ const Pokedigi = (): JSX.Element => {
 
   return (
     <SafeAreaView>
-      <PokemonList pokemons={pokemons} loadPokemons={loadPokemons} />
+      <PokemonList
+        pokemons={pokemons}
+        loadPokemons={loadPokemons}
+        isNext={Boolean(nextUrl)}
+      />
     </SafeAreaView>
   );
 };
