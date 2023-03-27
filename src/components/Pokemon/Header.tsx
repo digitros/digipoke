@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 30,
+    textTransform: "capitalize",
   },
   order: {
     color: "#fff",
