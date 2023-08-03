@@ -12,7 +12,10 @@ const Tab = createBottomTabNavigator();
 
 const Navigation = (): JSX.Element => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: true }}>
+    <Tab.Navigator
+      screenOptions={{ headerShown: true }}
+      initialRouteName="Pokedigi"
+    >
       <Tab.Screen
         name="Favorite"
         component={FavoriteScreen}

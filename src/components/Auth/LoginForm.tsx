@@ -1,24 +1,51 @@
+import { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
+import { user, userDetails } from "../../utils/userDB";
+import useAuth from "../../hooks/useAuth";
+
 type Inputs = {
-  user: string;
+  userName: string;
   password: string;
 };
 
 export default function LoginForm() {
+  const [error, setError] = useState("");
+  const { auth, login } = useAuth();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
-      user: "",
+      userName: "",
       password: "",
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const { userName, password } = data;
+
+    if (userName === user.userName && password === user.password) {
+      login({ userName, ...userDetails });
+      setError("");
+    } else {
+      setError("Invalid username or password");
+      // ToastAndroid.show("Invalid username or password", ToastAndroid.SHORT);
+      // ActionSheetIOS.showActionSheetWithOptions(
+      //   {
+      //     title: "Invalid username or password",
+      //     options: ["OK"],
+      //     cancelButtonIndex: 0,
+      //   },
+      //   (buttonIndex) => {
+      //     console.log("OK");
+      //   }
+      // );
+    }
+  };
 
   return (
     <View>
@@ -35,10 +62,10 @@ export default function LoginForm() {
               onChangeText={onChange}
               value={value}
             />
-            {errors.user && <Text>This is required.</Text>}
+            {errors.userName && <Text>This is required.</Text>}
           </>
         )}
-        name="user"
+        name="userName"
         rules={{ required: true }}
       />
       <Controller
@@ -65,6 +92,7 @@ export default function LoginForm() {
         }}
       />
       <Button title="Enter" onPress={handleSubmit(onSubmit)} />
+      <Text style={styles.error}>{error}</Text>
     </View>
   );
 }
@@ -83,5 +111,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
+  },
+  error: {
+    textAlign: "center",
+    color: "red",
+    marginTop: 10,
   },
 });

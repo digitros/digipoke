@@ -6,6 +6,8 @@ import { PokedexStackParamList } from "../navigation/PokedigiNavigation";
 import Header from "../components/Pokemon/Header";
 import Type from "../components/Pokemon/Type";
 import Stats from "../components/Pokemon/Stats";
+import Favorite from "../components/Pokemon/Favorite";
+import useAuth from "../hooks/useAuth";
 
 type Props = NativeStackScreenProps<
   PokedexStackParamList,
@@ -19,10 +21,11 @@ const Pokemon = (props: Props) => {
     route: { params },
   } = props;
   const { pokemon } = params;
+  const { auth } = useAuth();
 
   React.useEffect(() => {
     navigation.setOptions({
-      headerRight: () => null,
+      headerRight: () => auth && <Favorite id={pokemon?.id} />,
       headerLeft: () => (
         <IonIcon
           name="arrow-left"
@@ -33,7 +36,7 @@ const Pokemon = (props: Props) => {
         />
       ),
     });
-  }, [navigation, pokemon]);
+  }, [navigation, pokemon, auth]);
 
   return (
     <ScrollView>

@@ -1,5 +1,6 @@
 import { SafeAreaView, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getPokemonsFavoriteApi } from "../api/favorite";
 
 const Favorite = (): JSX.Element => {
   return (
